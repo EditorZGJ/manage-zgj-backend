@@ -43,8 +43,15 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public Result<Page<User>> list(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
-        Page<User> p = userMapper.selectPage(new Page<>(page, size), null);
+    public Result<Page<User>> list(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String name) {
+        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+        if (name != null && !name.isEmpty()) {
+            wrapper.like(User::getName, name);
+        }
+        Page<User> p = userMapper.selectPage(new Page<>(page, size), wrapper);
         return Result.success(p);
     }
 
