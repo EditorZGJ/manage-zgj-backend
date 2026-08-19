@@ -1,16 +1,18 @@
 package com.example.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 
-// @TableName 告诉 MyBatis-Plus 这个类对应数据库里的哪张表
+import java.time.LocalDateTime;
+
 @TableName("sys_user")
 public class User {
 
-    // @TableId 标记主键，IdType.AUTO 表示主键自增
     @TableId(type = IdType.AUTO)
     private Long id;
     private String name;
@@ -18,10 +20,22 @@ public class User {
     @TableLogic
     @JsonIgnore
     private Integer deleted;
-
     private String email;
 
-    // Getter / Setter（MyBatis-Plus 底层通过 getter/setter 读写字段）
+    // 自动填充字段
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
+
+    @JsonIgnore
+    private String createBy;
+
+    @JsonIgnore
+    private String updateBy;
+
+    // ====== Getter / Setter ======
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -36,4 +50,16 @@ public class User {
 
     public Integer getDeleted() { return deleted; }
     public void setDeleted(Integer deleted) { this.deleted = deleted; }
+
+    public LocalDateTime getCreateTime() { return createTime; }
+    public void setCreateTime(LocalDateTime createTime) { this.createTime = createTime; }
+
+    public LocalDateTime getUpdateTime() { return updateTime; }
+    public void setUpdateTime(LocalDateTime updateTime) { this.updateTime = updateTime; }
+
+    public String getCreateBy() { return createBy; }
+    public void setCreateBy(String createBy) { this.createBy = createBy; }
+
+    public String getUpdateBy() { return updateBy; }
+    public void setUpdateBy(String updateBy) { this.updateBy = updateBy; }
 }
