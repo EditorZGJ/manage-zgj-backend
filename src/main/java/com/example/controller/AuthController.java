@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -68,5 +69,12 @@ public class AuthController {
             "token", token,
             "username", user.getUsername()
         ));
+    }
+
+    @PostMapping("/auth/logout")
+    public Result<String> logout(@RequestHeader("Authorization") String auth) {
+        String token = auth.substring(7);
+        JwtUtil.invalidate(token);  // 加入黑名单，后续请求失效
+        return Result.success("退出成功");
     }
 }

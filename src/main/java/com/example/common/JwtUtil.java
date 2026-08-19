@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class JwtUtil {
@@ -21,6 +23,9 @@ public class JwtUtil {
     private long expiration;
 
     private static JwtUtil instance;
+
+    // token 黑名单（退出后加入，过期自动清除）
+    private static final Set<String> blacklist = ConcurrentHashMap.newKeySet();
 
     @PostConstruct
     public void init() {
@@ -55,6 +60,18 @@ public class JwtUtil {
 
     public String getUsername(String token) {
         return parseToken(token).get("username", String.class);
+    }
+
+    // ====== 黑名单 ======
+
+    /** 将 token 加入黑名单 */
+    public static void invalidate(String token) {
+        blacklist.add(token);
+    }
+
+    /** 检查 token 是否已被拉黑 */
+    public static boolean isInvalid(String token) {
+        return blacklist.contains(token);
     }
 
     // ====== 静态方法，方便在拦截器等非 Bean 中调用 ======

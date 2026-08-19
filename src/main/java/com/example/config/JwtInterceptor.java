@@ -28,6 +28,14 @@ public class JwtInterceptor implements HandlerInterceptor {
 
         try {
             token = token.substring(7); // 去掉 "Bearer "
+
+            // 检查是否已退出（黑名单）
+            if (JwtUtil.isInvalid(token)) {
+                response.setContentType("application/json;charset=utf-8");
+                response.getWriter().write(new ObjectMapper().writeValueAsString(Result.error(401, "token 已失效，请重新登录")));
+                return false;
+            }
+
             JwtUtil.parse(token);
             return true;
         } catch (Exception e) {

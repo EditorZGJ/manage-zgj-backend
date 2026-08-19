@@ -1,6 +1,6 @@
 # 用户管理 API 接口文档
 
-**基础 URL：** `http://localhost:8080`
+**基础 URL：** `http://localhost:8080/api`
 
 **统一响应格式：**
 
@@ -254,6 +254,29 @@ GET /users/export?name=张       → 导出姓名含"张"的用户
 **GET** `/users/export/template`
 
 **说明：** 下载一个空的 Excel 模板文件（只有表头），供填写导入数据用。
+
+---
+
+## 10. 退出登录
+
+**POST** `/auth/logout`
+
+**请求头：**
+
+| 参数 | 值 |
+|------|-----|
+| Authorization | `Bearer 你的token` |
+
+**说明：** JWT 无状态，服务端无法主动使 token 失效。前端清除本地 token 即可。
+
+**响应示例：**
+
+```json
+{
+    "code": 200,
+    "message": "退出成功"
+}
+```
 
 ---
 
