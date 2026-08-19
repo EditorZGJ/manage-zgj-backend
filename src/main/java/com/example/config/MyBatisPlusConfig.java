@@ -11,8 +11,8 @@ public class MyBatisPlusConfig {
     @Bean
     public MybatisPlusInterceptor myBatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        // 分页拦截器，DbType.H2 表示当前数据库类型
-        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.H2));
+        // 分页拦截器，DbType.MYSQL 表示当前数据库类型
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
         return interceptor;
     }
 }
