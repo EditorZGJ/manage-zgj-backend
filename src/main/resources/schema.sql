@@ -11,6 +11,3 @@ CREATE TABLE IF NOT EXISTS auth_user (
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(100) NOT NULL
 );
-
--- 插入默认管理员账号（密码 Admin123，后续讲加密）
-INSERT IGNORE INTO auth_user (username, password) VALUES ('admin', 'Admin123');

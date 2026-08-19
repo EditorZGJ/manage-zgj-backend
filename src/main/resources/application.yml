@@ -13,3 +13,8 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   type-aliases-package: com.example.entity
+
+# JWT 配置
+jwt:
+  secret: ${JWT_SECRET:my-secret-key-which-is-at-least-256-bits-long-for-hs256}
+  expiration: ${JWT_EXPIRATION:86400000}

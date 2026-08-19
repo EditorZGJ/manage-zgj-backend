@@ -28,7 +28,7 @@ public class JwtInterceptor implements HandlerInterceptor {
 
         try {
             token = token.substring(7); // 去掉 "Bearer "
-            JwtUtil.parseToken(token);
+            JwtUtil.parse(token);
             return true;
         } catch (Exception e) {
             response.setContentType("application/json;charset=utf-8");
