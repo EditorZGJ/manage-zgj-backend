@@ -1,0 +1,22 @@
+# Maven 编译输出
+target/
+*.class
+*.jar
+*.war
+
+# IDE 文件
+.idea/
+*.iml
+.vscode/
+
+# OS 文件
+.DS_Store
+Thumbs.db
+
+# 日志
+*.log
+
+# H2 数据库文件（本地数据，不上传）
+/data/
+*.mv.db
+*.trace.db

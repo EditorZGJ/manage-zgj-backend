@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    # 先用 H2 内存数据库，不需要安装 MySQL 就能跑
+    url: jdbc:h2:file:./data/testdb;MODE=MySQL;DATABASE_TO_LOWER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+mybatis-plus:
+  configuration:
+    # 控制台打印 SQL 语句，方便调试
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  # 告诉 MyBatis-Plus 实体类在哪里，这样它自动扫描
+  type-aliases-package: com.example.entity
